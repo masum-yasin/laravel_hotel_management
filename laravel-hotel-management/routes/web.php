@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\backend\TeamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -50,3 +51,12 @@ Route::middleware(['auth','roles:admin'])->group(function(){
 // Admin Login//
 Route::get('/admin/login',[AdminController::class,'AdminLogin'])->name('admin.login');
 
+// Team Group MiddleWare
+Route::middleware(['auth','roles:admin'])->group(function(){
+
+Route::controller(TeamController::class)->group(function(){
+Route::get('all/team','AllTeam')->name('all.team');
+Route::get('all/create','TeamCreate')->name('create.team');
+Route::get('all/store','TeamStore')->name('team.store');
+});
+});
