@@ -37,13 +37,13 @@
 									@foreach ($team as $key=>$item)
 									<tr>
 										<td>{{$key+1}}</td>
-										<td><img src="{{asset($item->img)}}" alt="" style="width: 70; height:40px"></td>
+										<td><img src="{{asset($item->image)}}" alt="" style="width: 70; height:40px"></td>
 										<td>{{$item->name}}</td>
 										<td>{{$item->position}}</td>
 										<td>{{$item->facebook}}</td>
-										<td class="d-flex justify-between">
-											<a href=""><i class="btn btn-warning p-2">Edit</i></a>
-											<a href=""><i class="btn btn-warning p-2">Delete</i></a>
+										<td class="d-flex; gap-3">
+											<a href="{{route('team.edit',$item->id)}}"><i class="btn btn-warning p-2">Edit</i></a>
+											<a href="{{route('team.delete',$item->id)}}" id="delete"><i class="btn btn-danger p-2" >Delete</i></a>
 										</td>
 									</tr>
 									@endforeach
