@@ -171,8 +171,8 @@
                                                  </div>
                                                  <div class="col-md-4">
                                                     <div class="form-group" style="padding-top: 30px;">
-                                                          <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i></a>
-                                                          <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle"></i></span>
+                                                          <a class="btn btn-success addeventmore"><i class="lni lni-circle-plus p-2"></i></a>
+                                                          <span class="btn btn-danger btn-sm removeeventmore p-3"><i class="lni lni-circle-minus"></i></span>
                                                     </div>
                                                  </div>
                                               </div>
