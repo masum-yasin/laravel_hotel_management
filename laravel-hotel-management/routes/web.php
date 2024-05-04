@@ -80,6 +80,7 @@ Route::controller(RoomTypeController::class)->group(function(){
 }); 
 Route::controller(RoomController::class)->group(function(){
     Route::get('edit/room/{id}','EditRoom')->name('edit.room');
+    Route::get('update/room/{id}','UpdateRoom')->name('update.room');
    
     
 }); 

@@ -1,6 +1,8 @@
 @extends('admin.admin_dashboard');
 @section('admin')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
     <div class="page-content">
         <div class="container">
             <div class="main-body">
@@ -33,7 +35,8 @@
                         </ul>
                         <div class="tab-content py-3">
                             <div class="tab-pane fade active show" id="primaryhome" role="tabpanel">
-                                <form class="row g-3">
+                                <form class="row g-3" action="{{route("update.room", $editData->id)}}" enctype="multipart/form-data">
+                                    @csrf
                                     <div>
                                         <h5 class="mb-4">UPDATE ROOM</h5>
                                     </div>
@@ -71,17 +74,22 @@
 
 
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label for="input1" class="form-label">Room Price</label>
-                                        <input type="text" class="form-control" id="input1" name="price"
-                                            value="{{ $editData->price }}">
+                                        <input type="number" class="form-control" id="input1" name="price"
+                                            value="{{old('price', $editData->price) }}">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
+                                        <label for="input1" class="form-label">Size</label>
+                                        <input type="text" class="form-control" id="input1" name="size"
+                                            value="{{old('size', $editData->size)}}">
+                                    </div>
+                                    <div class="col-md-3">
                                         <label for="input2" class="form-label">Discount (%)</label>
                                         <input type="text" class="form-control" id="input2" name="discount"
                                             value="{{ old('discount', $editData->discount) }}">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label for="input2" class="form-label">Room Capacity</label>
                                         <input type="text" class="form-control" id="input2" name="room_capacity"
                                             value="{{ old('room_capacity', $editData->room_capacity) }}">
@@ -121,7 +129,7 @@
 
                                     <div class="col-md-12">
                                         <label for="input11" class="form-label">Description</label>
-                                        <textarea class="form-control" id="myeditorinstance" name="description">{{ $editData->description }}</textarea>
+                                        <textarea id="myeditorinstance" class="form-control"  name="description">{{ $editData->description }}</textarea>
                                     </div>
 
 
@@ -317,12 +325,12 @@
                                 <option value="Hair dryer">Hair dryer</option>
                                 <option value="Wake-up service">Wake-up service</option>
                                 <option value="Laundry & Dry Cleaning">Laundry & Dry Cleaning</option>
-                                <option value="Electronic door lock">Electronic door lock</option>
+                                <option value="Electronic door mb-3">Electronic door lock</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-6" style="padding-top: 20px">
-                            <span class="btn btn-success addeventmore"><i class="lni lni-circle-plus"></i></span>
-                            <span class="btn btn-danger removeeventmore"><i class="lni lni-circle-minus"></i></span>
+                        <div class="form-group col-md-6" style="padding-top:20px">
+                            <span class="btn btn-success pt-4 addeventmore"><i class="lni lni-circle-plus"></i></span>
+                            <span class="btn btn-danger pt-4 removeeventmore"><i class="lni lni-circle-minus"></i></span>
                         </div>
                     </div>
                 </div>
@@ -345,4 +353,13 @@
         });
     </script>
     <!--========== End of Basic Plan Facilities ==============-->
+
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+        plugins: 'code table lists',
+        toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+      });
+    </script>
 @endsection
