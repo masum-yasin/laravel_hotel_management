@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\Room;
+use App\Models\roomNumber;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
@@ -13,8 +14,10 @@ class RoomController extends Controller
 {
     public function EditRoom($id){
         $basic_facility =Facility::where('rooms_id',$id)->get();
+        $multiImage =MultiImage::where('rooms_id',$id)->get();
         $editData =Room::find($id);
-        return view('backend.allroom.room.edit_rooms',compact('editData','basic_facility'));
+        $allRoomNumber = RoomNumber::where('rooms_id',$id)->get();
+        return view('backend.allroom.room.edit_rooms',compact('editData','basic_facility','multiImage','allRoomNumber'));
     }
     // Update For Room
 
@@ -36,11 +39,15 @@ class RoomController extends Controller
         // Update Single Image//
         if($request->file('image')){
             $image = $request->file('image');
+        
             $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(550,850)->save('upload/roomimg/'.$name_gen);
           $room['image'] = $name_gen;
+     
         }
         $room->save();
+       
+ 
 
         // Update for facility table//
     if($request->facility_name == NULL){
@@ -67,60 +74,25 @@ class RoomController extends Controller
 
     // Update Multi Image//
 
-    if ($room->save()) {
-        $files = $request->multi_img;
+        if ($room->save()) {
+        $files = $request->file('multi_img'); // Use file() instead of multi_img directly
         if (!empty($files)) {
-            // Fetch and delete existing images
+            $subimage = MultiImage::where('rooms_id', $id)->get()->toArray();
             MultiImage::where('rooms_id', $id)->delete();
-            
             foreach ($files as $file) {
-                // Check if $file is null
-                if ($file === null) {
-                    continue; // Skip to the next iteration
-                }
-    
-                // Check if $file is a valid file upload object
-                if (!is_object($file)) {
-                    continue; // Skip if $file is not an object
-                }
-    
-                // Process each file
-                $imgName = date('YmdHi') . $file->getClientOriginalName();
+                $imgName =date('YmdHi') . $file->getClientOriginalName();
                 $file->move('upload/roomimg/multi_img/', $imgName);
-    
-                // Create a new MultiImage instance for each file
                 $subimage = new MultiImage();
-                $subimage->rooms_id = $room->id; // Assuming $room is available here
-                $subimage->multi_img = $imgName; // Save the file name, not the file itself
+                $subimage->rooms_id = $room->id;
+                $subimage->multi_img = $imgName;
                 $subimage->save();
             }
         }
     }
-    
+        
 
 
-
-    // if( $room->save()){
-    //     $files = $request->multi_img;
-    //     if(!empty($files)){
-    //         $subimage = MultiImage::where('rooms_id',$id)->get()->toArray();
-    //         MultiImage::where('rooms_id', $id)->delete();
-    //     }
-    //     if(!empty($files)){
-    //         foreach($files as $file){
-    //             $imgName = date('YmdHi') .  $file->getClientOriginalName();
-    //             $file->move('upload/roomimg/multi_img/', $imgName);
-    //             $subimage['multi_img'] = $imgName;
-    //             $subimage = new MultiImage();
-    //             $subimage->rooms_id = $room->id;
-    //             $subimage->multi_img =$imgName;
-    //             $subimage->save();
-    //         }
-    //     }
-
-
-    // }
-    // end if
+// end if
 
    
         $notification = array(
@@ -130,6 +102,87 @@ class RoomController extends Controller
         return redirect()->back()->with($notification);
 
     }
-  
+
+
+
+
+
+
+    public function multiImageDelete($id){
+        $deleteData = MultiImage::where('íd',$id)->first();
+        if($deleteData){
+            $imagePath =$deleteData->multi_img;
+            // check if the file exists before unlinking//
+            if(file_exists($imagePath)){
+                unlink($imagePath);
+                echo "Image Unlink Successfully";
+            }
+            else{
+                echo "Image Does not exits";
+            }
+            // Delete the record from database
+
+            MultiImage::where('id',$id)->delete();
+
+    }
+    $notification = array(
+        'message' => 'multiImage Delete Successfully',
+        'alert-type' => 'success', 
+    );
+    return redirect()->back()->with($notification);
+
+}
+
+
+// Room Number Function//
+
+function StoreRoomNumber(Request $request, $id){
+    $data = new roomNumber();
+    $data->rooms_id = $id;
+    $data->room_type_id = $request->room_type_id;
+    $data->room_no = $request->room_no;
+    $data->status = $request->status;
+    $data->save();
+
+    $notification = array(
+        'message' => 'RoomNumber Data Store Successfully',
+        'alert-type' => 'success', 
+    );
+    return redirect()->back()->with($notification);
+}
+
+
+public function EditRoomNumber($id){
+    $roomNumber = roomNumber::find($id);
+    return view('backend.allroom.room.edit_room_no',compact('roomNumber'));
+}
+
+
+public function UpdateRoomNumber(Request $request, $id){
+    $data = roomNumber::find($id);
+    $data->room_no = $request->room_no;
+    $data->status = $request->status;
+    $data->save();
+
+    $notification = array(
+        'message' => 'Room Number Updated Successfully',
+        'alert-type' => 'success',
+    );
+
+    return redirect()->route('room.type.list')->with($notification);
+
+}
+
+public function DeleteRoomNumber($id){
+    roomNumber::find($id)->delete();
+
+    $notification = array(
+        'message' => 'Room Number Delete Successfully',
+        'alert-type' => 'success',
+    );
+
+    return redirect()->back()->with($notification);
+}
     
 }
+

@@ -107,7 +107,7 @@ public function BookAreaUpdate(Request $request){
     if($request->file('image')){
         $image = $request->file('image');
         $name_gen = hexdec(uniqid()).'.'. $image->getClientOriginalExtension();
-        Image::make($image)->resize(1000,1000)->save('upload/bookarea/'.$name_gen);
+        Image::make($image)->resize(1000,1000)->save('upload/bookarea/'. $name_gen);
         $save_url = 'upload/bookarea/'.$name_gen;
                 BookArea::findOrFail($book_id)->update([
                     'short_title' => $request->short_title,

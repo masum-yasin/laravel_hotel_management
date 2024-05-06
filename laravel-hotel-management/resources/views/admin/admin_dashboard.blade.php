@@ -8,33 +8,33 @@
     <!--favicon-->
     <link rel="icon" href="{{ asset('') }}backend/assets/images/favicon-32x32.png" type="image/png" />
     <!--plugins-->
-    <link href="{{ asset('') }}backend/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
-    <link href="{{ asset('') }}backend/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
-    <link href="{{ asset('') }}backend/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css"
+    <link href="{{asset('backend/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
+    <link href="{{asset('backend/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet') }}" />
+    <link href="{{asset('backend/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}"
         rel="stylesheet" />
-    <link href="{{ asset('') }}backend/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+    <link href="{{ asset('backend/assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
     <!-- loader-->
-    <link href="{{ asset('') }}backend/assets/css/pace.min.css" rel="stylesheet" />
-    <script src="{{ asset('') }}backend/assets/js/pace.min.js"></script>
+    <link href="{{asset('backend/assets/css/pace.min.css" rel="stylesheet') }}" />
+    <script src="{{ asset('backend/assets/js/pace.min.js') }}"></script>
     <!-- Bootstrap CSS -->
-    <link href="{{ asset('') }}backend/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('') }}backend/assets/css/bootstrap-extended.css" rel="stylesheet">
+    <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/assets/css/bootstrap-extended.css" rel="stylesheet') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link href="{{ asset('') }}backend/assets/css/app.css" rel="stylesheet">
-    <link href="{{ asset('') }}backend/assets/css/icons.css" rel="stylesheet">
+    <link href="{{ asset('backend/assets/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/assets/css/icons.css') }}" rel="stylesheet">
     <!-- Theme Style CSS -->
-    <link rel="stylesheet" href="{{ asset('') }}backend/assets/css/dark-theme.css" />
-    <link rel="stylesheet" href="{{ asset('') }}backend/assets/css/semi-dark.css" />
-    <link rel="stylesheet" href="{{ asset('') }}backend/assets/css/header-colors.css" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/dark-theme.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/semi-dark.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/header-colors.css') }}" />
     {{-- Data Tables Start --}}
-    <link href="{{ asset('') }}backend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css"
+    <link href="{{ asset('backend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}"
         rel="stylesheet" />
     {{-- Data Tables Ending  --}}
     <title>@yield('title')</title>
     {{-- toaster css --}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     {{-- toaster css ending --}}
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
     
 </head>
 
@@ -247,21 +247,21 @@
     </div>
     <!--end switcher-->
     <!-- Bootstrap JS -->
-    <script src="{{ asset('') }}backend/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('backend/assets/js/bootstrap.bundle.min.js') }}"></script>
     <!--plugins-->
-    <script src="{{ asset('') }}backend/assets/js/jquery.min.js"></script>
-    <script src="{{ asset('') }}backend/assets/plugins/simplebar/js/simplebar.min.js"></script>
-    <script src="{{ asset('') }}backend/assets/plugins/metismenu/js/metisMenu.min.js"></script>
-    <script src="{{ asset('') }}backend/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-    <script src="{{ asset('') }}backend/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
-    <script src="{{ asset('') }}backend/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="{{ asset('') }}backend/assets/plugins/chartjs/js/chart.js"></script>
-    <script src="{{ asset('') }}backend/assets/js/index.js"></script>
+    <script src="{{ asset('backend/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/chartjs/js/chart.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/index.js') }}"></script>
     <!--app JS-->
-    <script src="{{ asset('') }}backend/assets/js/app.js"></script>
+    <script src="{{ asset('backend/assets/js/app.js') }}"></script>
     {{-- Start Data Table --}}
-    <script src="{{ asset('') }}backend/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('') }}backend/assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset('backend/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
@@ -308,11 +308,15 @@
             }
         @endif
     </script>
-    {{-- toaster css --}}
-
-
-
-   
+    
+{{-- CK Editor  --}}
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
    
 </body>
 

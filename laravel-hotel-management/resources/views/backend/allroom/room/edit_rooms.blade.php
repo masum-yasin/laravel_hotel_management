@@ -58,17 +58,24 @@
                                     <div class="col-md-6">
                                         <label for="input3" class="form-label">Main Image</label>
                                         <input type="file" class="form-control" id="image" name="image">
+                                        <img id="showImage" 
+                                        src="{{!empty($editData->image) ? url('upload/roomimg/'. $editData->image) : url('upload/no_image.jpg') }}"
+                                        class="rounded-circle p-1 bg-primary" alt="" width="120px">
 
-                                        <img id="showImage"
-                                            src="{{ !empty($editData->image) ? url('upload/roomimg/' . $editData->image) : url('upload/no_image.jpg') }}"
-                                            class="rounded-circle p-1 bg-primary" alt="" width="120px">
+                                    
                                     </div>
                                     <div class="col-md-6">
                                         <label for="input4" class="form-label">Gellery Image</label>
                                         <input type="file" class="form-control" id="multiImg" name="multi_img[]"
                                             accept="image/jpeg, image/jpg, image/gif, image/png" multiple>
 
-
+                                           
+                                 @foreach ($multiImage as $item)
+                                            <img 
+                                            src="{{!empty($item->image) ? url('upload/roomimg/multi_img/' . $item->image):url('upload/no_image.jpg') }}"
+                                            class="rounded-circle p-1 bg-primary" alt="" width="60px" height="50px">
+                                            <a href="{{route('multi.image.delete',$item->id)}}"><i class="lni lni-close"></i></a>
+                                            @endforeach
                                         <div class="row" id="preview_img"></div>
                                     </div>
 
@@ -99,9 +106,9 @@
                                         <label for="input7" class="form-label">Room View</label>
                                         <select id="input7" class="form-select" name="view">
                                             <option selected="">Choose...</option>
-                                            <option value="Sea View">Sea View</option>
-                                            <option value="Hill View">Hill View</option>
-                                            <option value="Natural View">Natural View</option>
+                                            <option value="Sea View" {{$editData->view == 'sea view'?'selected':''}}>Sea View</option>
+                                            <option value="Hill View" {{$editData->view == 'Hill View'?'selected':''}}>Hill View</option>
+                                            <option value="Natural View"{{$editData->view == 'Natural View'?'selected':''}}>Natural View</option>
                                         </select>
                                     </div>
 
@@ -109,9 +116,9 @@
                                         <label for="input7" class="form-label">Bed Style</label>
                                         <select id="input7" class="form-select" name="bed_style">
                                             <option selected="">Choose...</option>
-                                            <option value="Queen Bed">Queen Bed</option>
-                                            <option value="Twin Bed">Twin Bed</option>
-                                            <option value="King Bed">King Bed</option>
+                                            <option value="Queen Bed" {{$editData->bed_style == 'Queen Bed'?'selected':''}}>Queen Bed</option>
+                                            <option value="Twin Bed"{{$editData->bed_style == 'Twin Bed'?'selected':''}}>Twin Bed</option>
+                                            <option value="King Bed"{{$editData->bed_style == 'King Bed'?'selected':''}}>King Bed</option>
                                         </select>
                                     </div>
 
@@ -126,10 +133,10 @@
                                         <label for="input11" class="form-label">Short Description</label>
                                         <textarea class="form-control" id="input11" placeholder="Address ..." rows="3" name="short_desc">{{ $editData->short_desc }}</textarea>
                                     </div>
-
+                               
                                     <div class="col-md-12">
                                         <label for="input11" class="form-label">Description</label>
-                                        <textarea id="myeditorinstance" class="form-control"  name="description">{{ $editData->description }}</textarea>
+                                        <textarea id="editor"class="form-control"  name="description" rows="3">{{$editData->description}}</textarea>
                                     </div>
 
 
@@ -171,7 +178,7 @@
                                                  </div>
                                                  <div class="col-md-4">
                                                     <div class="form-group" style="padding-top: 30px;">
-                                                          <a class="btn btn-success addeventmore"><i class="lni lni-circle-plus p-2"></i></a>
+                                                          <a class="btn btn-success addeventmore p-3"><i class="lni lni-circle-plus"></i></a>
                                                           <span class="btn btn-danger btn-sm removeeventmore p-3"><i class="lni lni-circle-minus"></i></span>
                                                     </div>
                                                  </div>
@@ -203,9 +210,9 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group" style="padding-top: 30px;">
-                                                <a class="btn btn-success addeventmore"><i class="lni lni-circle-plus"></i></a>
+                                                <a class="btn btn-success addeventmore p-3"><i class="lni lni-circle-plus"></i></a>
                                        
-                                               <span class="btn btn-danger removeeventmore"><i class="lni lni-circle-minus"></i></span>
+                                               <span class="btn btn-danger removeeventmore p-3"><i class="lni lni-circle-minus"></i></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -235,16 +242,74 @@
 
 
                             <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
-                                <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
-                                    Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson
-                                    artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo
-                                    enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud
-                                    organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
-                                    yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes
-                                    anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson
-                                    biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente
-                                    accusamus tattooed echo park.</p>
+                                
+                                  <div class="card">
+                                    <div class="card-body">
+                                        <a class="card-title btn btn-primary float-right p-4 text-white text-center" onclick="addRoomNo()" id="addRoomNo"><i class="lni lni-plus">Add New</i></a>
+
+                                        {{-- Room Number form start --}}
+
+
+                                            <div class="roomnoHide" id="roomnoHide">
+                                            <form action="{{route('store.room.no',$editData->id)}}" method="post">
+                                                @csrf
+                                                <input type="hidden" id="" name="room_type_id" value="{{$editData->roomtype_id}}">
+                                             
+                                                <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="input2" class="form-label">Room No</label>
+                                                    <input type="text" class="form-control" id="input2" name="room_no">
+                                                </div>
+            
+                                                <div class="col-md-4">
+                                                    <label for="input7" class="form-label">Room Status</label>
+                                                    <select id="input7" class="form-select" name="status">
+                                                        <option selected="">select Status...</option>
+                                                        <option value="Active" >Active</option>
+                                                        <option value="Inactive" >inActive</option>
+                                                      
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="submit" class="btn btn-success" style="margin-top: 28px">Save As</button>
+                                                </div>
+                                            </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                  </div>
                             </div>
+                            {{-- end primaryProfile --}}
+
+
+                            <div class="card-body">
+								<table class="table mb-0 table-striped" id="roomview">
+									<thead>
+                                       
+                                    <tr>
+											<th scope="col">Room Number</th>
+											<th scope="col">Status</th>
+											<th scope="col">Action</th>
+										
+										</tr>
+									</thead>
+									<tbody>
+                                        @foreach ($allRoomNumber as $item)
+										<tr>
+											<th scope="row">1</th>
+											<td>{{$item->room_no}}</td>
+											<td>{{$item->status}}</td>
+											<td class="d-flex; gap-3">
+                                                <a href="{{route('edit.room.no',$item->id)}}"><i class="btn btn-warning ">Edit</i></a>
+                                                <a href="{{route('delete.room.no',$item->id)}}" id="delete"><i class="btn btn-danger p-2" >Delete</i></a>
+                                            </td>
+										</tr>
+                                        @endforeach
+										
+									</tbody>
+								</table>
+							</div>
 
                         </div>
                     </div>
@@ -354,12 +419,23 @@
     </script>
     <!--========== End of Basic Plan Facilities ==============-->
 
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!--==========Start Room Number Add ==============-->
     <script>
-      tinymce.init({
-        selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
-        plugins: 'code table lists',
-        toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
-      });
+        $('#roomnoHide').hide();
+        $('#roomview').show();
+
+        function addRoomNo(){
+            $('#roomnoHide').show();
+            $('#roomview').hide();
+            $('#addRoomNo').hide();
+        }
+
     </script>
+
+
+
+    <!--========== End of Basic Plan Facilities ==============-->
+
+   
 @endsection
