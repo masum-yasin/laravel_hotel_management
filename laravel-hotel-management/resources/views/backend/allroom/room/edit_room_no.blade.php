@@ -23,7 +23,7 @@
 
                     <div class="col-lg-8">
                         <div class="card">
-                            <form action="{{route('update.room.no',$roomNumber->id)}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('update.roomno',$roomNumber->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
 
                              

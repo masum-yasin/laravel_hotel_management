@@ -72,7 +72,7 @@ Route::controller(TeamController::class)->group(function(){
     
     }); 
 
-Route::controller(RoomTypeController::class)->group(function(){
+    Route::controller(RoomTypeController::class)->group(function(){
     Route::get('room/type/list','RoomTypeList')->name('room.type.list');
     Route::get('add/room/type','AddRoomType')->name('add.room.type');
     Route::post('add/room/type','RoomTypeStore')->name('store.room.type');
@@ -83,9 +83,11 @@ Route::controller(RoomController::class)->group(function(){
     Route::get('update/room/{id}','UpdateRoom')->name('update.room');
     Route::get('multi/image/delete/{id}','multiImageDelete')->name('multi.image.delete');
     Route::post('store/room/no/{id}','StoreRoomNumber')->name('store.room.no');
-    Route::get('edit/room/no/{id}','EditRoomNumber')->name('edit.room.no');
-    Route::post('update/room/no/{id}','UpdateRoomNumber')->name('update.room.no');
-    Route::get('delete/room/no/{id}','DeleteRoomNumber')->name('delete.room.no');
+    Route::get('edit/room/no/{id}','EditRoomNumber')->name('edit.roomno');
+    Route::post('update/room/no/{id}','UpdateRoomNumber')->name('update.roomno');
+    Route::get('delete/room/no/{id}','DeleteRoomNumber')->name('delete.roomno');
+ 
+    Route::get('delete/room/{id}','DeleteRoom')->name('room.delete');
    
     
 }); 

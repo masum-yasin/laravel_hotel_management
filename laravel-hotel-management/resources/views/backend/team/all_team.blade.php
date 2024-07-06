@@ -3,18 +3,26 @@
 @section('admin')
     <div class="page-content">
 				<!--breadcrumb-->
-				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					
+			
+					<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            
 					<div class="ps-3">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
-                              
-								<a href="{{route('create.team')}}"><i  class="btn btn-primary px-5 radius-30">Add Team</i></a>
-								
+								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Form Elements</li>
 							</ol>
 						</nav>
 					</div>
-					
+					<div class="ms-auto">
+						<div class="btn-group" style="display:flex justify-content:right">
+							<a href="{{ route('create.team') }}">
+								<i class="btn btn-primary px-5">Add Team</i>
+							</a>
+							
+						</div>
+					</div>
 				</div>
 				<!--end breadcrumb-->
 				<h6 class="mb-0 text-uppercase">All Team</h6>
