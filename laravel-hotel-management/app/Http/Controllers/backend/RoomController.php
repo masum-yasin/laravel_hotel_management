@@ -204,14 +204,12 @@ public function DeleteRoom($id){
         $room->delete();
 
         $notification = array(
-            'message' => 'Room Updated Successfully',
+            'message' => 'Room Delete Successfully',
             'alert-type' => 'success',
         );
     
         return redirect()->back()->with($notification);
     
 }
-  
-    
 }
 
