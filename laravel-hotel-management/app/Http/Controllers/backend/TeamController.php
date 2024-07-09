@@ -97,6 +97,7 @@ $save_url = 'upload/team/'.$name_gen;
         }
 
 //==================Book Area Start====================//
+
 public function BookArea(){
 $book =BookArea::find(1);
 return view('backend.bookarea.book_area',compact('book'));

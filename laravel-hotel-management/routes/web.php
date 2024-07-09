@@ -66,7 +66,7 @@ Route::post('team/update/{id}',"TeamUpdate")->name('team.update');
 Route::get('team/delete/{id}',"TeamDelete")->name('team.delete');
 });
 // Book Area All Route//
-Route::controller(TeamController::class)->group(function(){
+    Route::controller(TeamController::class)->group(function(){
     Route::get('book/area','BookArea')->name('book.area');
     Route::post('book/area/update','BookAreaUpdate')->name('book.area.update');
     
