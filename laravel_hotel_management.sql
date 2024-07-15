@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2024 at 08:32 PM
+-- Generation Time: Jul 15, 2024 at 03:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,41 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bookings`
+--
+
+CREATE TABLE `bookings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `rooms_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `check_in` varchar(255) DEFAULT NULL,
+  `check_out` varchar(255) DEFAULT NULL,
+  `persion` varchar(255) DEFAULT NULL,
+  `number_of_rooms` varchar(255) DEFAULT NULL,
+  `total_night` double(8,2) NOT NULL DEFAULT 0.00,
+  `actual_price` double(8,2) NOT NULL DEFAULT 0.00,
+  `subtotal` double(8,2) NOT NULL DEFAULT 0.00,
+  `discount` int(11) NOT NULL DEFAULT 0,
+  `total_price` double(8,2) DEFAULT NULL,
+  `payment_method` varchar(255) DEFAULT NULL,
+  `transation_id` varchar(255) DEFAULT NULL,
+  `payment_status` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `zip_code` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `code` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `book_areas`
 --
 
@@ -37,6 +72,13 @@ CREATE TABLE `book_areas` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `book_areas`
+--
+
+INSERT INTO `book_areas` (`id`, `image`, `short_title`, `main_title`, `short_desc`, `link_url`, `created_at`, `updated_at`) VALUES
+(1, 'upload/bookarea/1804033818271580.jpg', 'Hollywood Twin Room', 'Naming your restaurant is one of the most important branding decisions you’ll make as a business owner, but coming up with restaurant names can be tough!', NULL, 'http://facebook.com', '2024-07-08 16:51:46', '2024-07-09 00:45:24');
 
 -- --------------------------------------------------------
 
@@ -57,11 +99,6 @@ CREATE TABLE `facilities` (
 --
 
 INSERT INTO `facilities` (`id`, `rooms_id`, `facility_name`, `created_at`, `updated_at`) VALUES
-(6, 1, 'Rain Shower', '2024-07-05 17:04:52', '2024-07-05 17:04:52'),
-(7, 1, 'Smoke alarms', '2024-07-05 17:04:52', '2024-07-05 17:04:52'),
-(8, 1, 'Hair dryer', '2024-07-05 17:04:52', '2024-07-05 17:04:52'),
-(9, 1, 'Laundry & Dry Cleaning', '2024-07-05 17:04:52', '2024-07-05 17:04:52'),
-(10, 1, 'Rain Shower', '2024-07-05 17:04:52', '2024-07-05 17:04:52'),
 (11, 4, 'Slippers', '2024-07-05 17:20:22', '2024-07-05 17:20:22'),
 (12, 4, 'Work Desk', '2024-07-05 17:20:23', '2024-07-05 17:20:23'),
 (13, 4, 'Slippers', '2024-07-05 17:20:23', '2024-07-05 17:20:23'),
@@ -114,7 +151,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (30, '2024_04_28_065344_create_rooms_table', 1),
 (31, '2024_04_28_065401_create_facilities_table', 1),
 (32, '2024_04_28_065417_create_multi_images_table', 1),
-(33, '2024_05_06_071825_create_room_numbers_table', 1);
+(33, '2024_05_06_071825_create_room_numbers_table', 1),
+(34, '2024_07_13_185438_create_bookings_table', 2),
+(35, '2024_07_14_171622_create_room_book_dates_table', 2);
 
 -- --------------------------------------------------------
 
@@ -191,10 +230,25 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `roomtype_id`, `total_adult`, `total_child`, `room_capacity`, `image`, `price`, `size`, `view`, `bed_style`, `discount`, `short_desc`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, '20', '26', '547', NULL, '452000.00', '25', 'Natural View', 'Twin Bed', 0, 'As i explained before maintain the description in vendor material number of the info record.it will be\r\n\r\nprinted in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as\r\n.', '<p>As i explained before maintain the description in vendor material number of the info record.it will be</p><p>printed in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as</p><p>required by u.Reg J1iex i am not able check because CIN is not activated in my system.</p>', 0, '2024-07-05 08:56:17', '2024-07-05 17:01:18'),
-(2, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, '2024-07-05 08:56:49', '2024-07-05 08:56:49'),
-(3, 3, '23', '36', '547', NULL, '452000.00', '25', 'Natural View', 'Twin Bed', 0, 'As i explained before maintain the description in vendor material number of the info record.it will be\r\n\r\nprinted in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as', '<p>As i explained before maintain the description in vendor material number of the info record.it will be</p><p>printed in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as</p><p>required by u.Reg J1iex i am not able check because CIN is not activated in my system.</p>', 0, '2024-07-05 09:56:21', '2024-07-05 17:31:51'),
-(4, 4, '23', '36', '670', NULL, '485000.00', '25', 'Natural View', 'Twin Bed', 0, 'As i explained before maintain the description in vendor material number of the info record.it will be\r\n\r\nprinted in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as', '<p>As i explained before maintain the description in vendor material number of the info record.it will be</p><p>printed in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as</p><p>required by u.Reg J1iex i am not able check because CIN is not activated in my system.</p>', 0, '2024-07-05 09:57:15', '2024-07-05 17:20:22');
+(3, 3, '23', '36', '547', '1798281847469041.jpg', '452000.00', '25', 'Natural View', 'Twin Bed', 0, 'As i explained before maintain the description in vendor material number of the info record.it will be\r\n\r\nprinted in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as', '<p>As i explained before maintain the description in vendor material number of the info record.it will be</p><p>printed in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as</p><p>required by u.Reg J1iex i am not able check because CIN is not activated in my system.</p>', 0, '2024-07-05 09:56:21', '2024-07-05 17:31:51'),
+(4, 4, '23', '36', '670', '1797548210826449.jpg', '485000.00', '25', 'Natural View', 'Twin Bed', 0, 'As i explained before maintain the description in vendor material number of the info record.it will be\r\n\r\nprinted in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as', '<p>As i explained before maintain the description in vendor material number of the info record.it will be</p><p>printed in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as</p><p>required by u.Reg J1iex i am not able check because CIN is not activated in my system.</p>', 0, '2024-07-05 09:57:15', '2024-07-05 17:20:22'),
+(5, 4, '23', '36', '670', '1797548210826449.jpg', '485000.00', '25', 'Natural View', 'Twin Bed', 0, 'As i explained before maintain the description in vendor material number of the info record.it will be\r\n\r\nprinted in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as', '<p>As i explained before maintain the description in vendor material number of the info record.it will be</p><p>printed in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as</p><p>required by u.Reg J1iex i am not able check because CIN is not activated in my system.</p>', 0, '2024-07-05 09:57:15', '2024-07-05 17:20:22'),
+(6, 3, '23', '36', '547', '1804033818271580.jpg', '452000.00', '25', 'Natural View', 'Twin Bed', 0, 'As i explained before maintain the description in vendor material number of the info record.it will be\r\n\r\nprinted in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as', '<p>As i explained before maintain the description in vendor material number of the info record.it will be</p><p>printed in PO also.When u do MIGO ,check in material tab of migo the description will be displayed as</p><p>required by u.Reg J1iex i am not able check because CIN is not activated in my system.</p>', 0, '2024-07-05 09:56:21', '2024-07-05 17:31:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room_book_dates`
+--
+
+CREATE TABLE `room_book_dates` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `booking_id` int(11) DEFAULT NULL,
+  `rooms_id` int(11) DEFAULT NULL,
+  `book_date` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -217,9 +271,6 @@ CREATE TABLE `room_numbers` (
 --
 
 INSERT INTO `room_numbers` (`id`, `rooms_id`, `room_type_id`, `room_no`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, '1', 302, 'Active', '2024-07-05 17:08:12', '2024-07-05 17:08:12'),
-(2, 1, '1', 241, 'Active', '2024-07-05 17:08:46', '2024-07-05 17:08:46'),
-(3, 1, '1', 805, 'Active', '2024-07-05 17:09:20', '2024-07-05 17:09:20'),
 (4, 4, '4', 302, 'Active', '2024-07-05 17:21:08', '2024-07-05 17:21:08'),
 (5, 4, '4', 302, 'Active', '2024-07-05 17:21:40', '2024-07-05 17:21:40'),
 (6, 4, '4', 302, 'Active', '2024-07-05 17:21:47', '2024-07-05 17:21:47'),
@@ -227,7 +278,8 @@ INSERT INTO `room_numbers` (`id`, `rooms_id`, `room_type_id`, `room_no`, `status
 (8, 3, '3', 302, 'Active', '2024-07-05 17:32:28', '2024-07-05 17:32:28'),
 (9, 3, '3', 805, 'Active', '2024-07-05 17:33:02', '2024-07-05 17:33:02'),
 (10, 3, '3', 666, 'Active', '2024-07-05 17:33:36', '2024-07-05 17:33:36'),
-(11, 3, '3', 666, 'Active', '2024-07-05 17:33:40', '2024-07-05 17:33:40');
+(12, 2, '2', 805, 'Active', '2024-07-07 23:08:56', '2024-07-07 23:08:56'),
+(13, 2, '2', 303, 'Active', '2024-07-07 23:09:30', '2024-07-07 23:09:30');
 
 -- --------------------------------------------------------
 
@@ -247,10 +299,10 @@ CREATE TABLE `room_types` (
 --
 
 INSERT INTO `room_types` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Boutique creative room', '2024-07-05 08:56:17', '2024-07-05 08:56:17'),
 (2, 'Luxury room', '2024-07-05 08:56:48', '2024-07-05 08:56:48'),
 (3, 'Bunk Room', '2024-07-05 09:56:19', '2024-07-05 09:56:19'),
-(4, 'Deluxe Room & Superior Room', '2024-07-05 09:57:14', '2024-07-05 09:57:14');
+(4, 'Deluxe Room & Superior Room', '2024-07-05 09:57:14', '2024-07-05 09:57:14'),
+(5, 'Deluxe Room & Superior Room', '2024-07-05 09:57:14', '2024-07-05 09:57:14');
 
 -- --------------------------------------------------------
 
@@ -273,8 +325,9 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`id`, `image`, `name`, `position`, `facebook`, `created_at`, `updated_at`) VALUES
-(1, 'upload/team/1803728181396988.jfif', 'khayrul  mizan', 'Designer', 'khayrul@facebook.com', '2024-07-05 08:47:21', '2024-07-05 08:47:21'),
-(3, 'upload/team/1803728489484157.png', 'Kamrul Hasan Ripon', 'Junior Web Developer', 'yamim@facebook.com', '2024-07-05 08:52:14', '2024-07-05 08:52:14');
+(4, 'upload/team/1803938333656932.jpg', 'Kamrul Hasan Ripon', 'Junior Web Developer', 'kawsar@facebook.com', '2024-07-07 16:27:40', '2024-07-07 16:27:40'),
+(5, 'upload/team/1803938437304517.jpg', 'nadia sultana', 'Designer', 'https://www.facebook.com', '2024-07-07 16:29:19', '2024-07-07 16:29:19'),
+(6, 'upload/team/1803938504306201.jpg', 'kamrul', 'Software Engineer', 'https://www.facebook.com/sthir.esrak.3', '2024-07-07 16:30:23', '2024-07-07 16:30:23');
 
 -- --------------------------------------------------------
 
@@ -309,6 +362,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ph
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `bookings`
+--
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `book_areas`
@@ -362,6 +421,12 @@ ALTER TABLE `rooms`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `room_book_dates`
+--
+ALTER TABLE `room_book_dates`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `room_numbers`
 --
 ALTER TABLE `room_numbers`
@@ -391,10 +456,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `bookings`
+--
+ALTER TABLE `bookings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `book_areas`
 --
 ALTER TABLE `book_areas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `facilities`
@@ -412,7 +483,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `multi_images`
@@ -430,25 +501,31 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `room_book_dates`
+--
+ALTER TABLE `room_book_dates`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `room_numbers`
 --
 ALTER TABLE `room_numbers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `room_types`
 --
 ALTER TABLE `room_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
