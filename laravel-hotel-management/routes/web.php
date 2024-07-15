@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\backend\RoomController;
 use App\Http\Controllers\backend\TeamController;
 use App\Http\Controllers\backend\RoomTypeController;
+use App\Http\Controllers\Frontend\BookingController;
+use App\Http\Controllers\Frontend\FrontendRoomController;
 use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\UserController;
@@ -92,6 +94,15 @@ Route::controller(RoomController::class)->group(function(){
     
 }); 
 
+});
+Route::controller(FrontendRoomController::class)->group(function(){
+    Route::get('/rooms/','AllFrontendRoomList')->name('frontendall.rooms');
+    Route::get('room/details/{id}','RoomDetailsPage');
+});
 
-
+Route::middleware(['auth'])->group(function(){
+Route::controller(BookingController::class)->group(function(){
+Route::get('/checkout/','CheckOut')->name('checkout');
+Route::post('/booking/store','UserBookingStore')->name('user_booking_store');
+});
 });
