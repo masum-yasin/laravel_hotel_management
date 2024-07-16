@@ -104,5 +104,6 @@ Route::middleware(['auth'])->group(function(){
 Route::controller(BookingController::class)->group(function(){
 Route::get('/checkout/','CheckOut')->name('checkout');
 Route::post('/booking/store','UserBookingStore')->name('user_booking_store');
+Route::get('/booking/','BookingSearch')->name('booking.search');
 });
 });
